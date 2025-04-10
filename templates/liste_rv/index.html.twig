@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Rendez-vous{% endblock %}
+
+{% block body %}
+<div class="flex min-h-screen bg-gray-100 font-sans">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-green-600 text-white flex flex-col justify-between p-4">
+    <div>
+      <h2 class="text-2xl font-bold mb-6">Menu</h2>
+      <ul class="space-y-4">
+        <li><a href="#" class="hover:underline">🏠 Home</a></li>
+        <li><a href="#" class="hover:underline">📄 Mes demandes</a></li>
+        <li><a href="#" class="hover:underline">📆 Mes RV</a></li>
+      </ul>
+    </div>
+    <form action="{{ path('app_security_logout') }}" method="post">
+      <button class="text-white mt-4">🔓 Se Déconnecter</button>
+    </form>
+  </aside>
+
+  <!-- Main content -->
+  <main class="flex-1 p-8">
+    <div class="flex justify-end mb-4">
+      <a href="#" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">➕ Nouveau</a>
+    </div>
+
+    <!-- Search -->
+    <div class="mb-4">
+      <input type="text" placeholder="Rechercher" class="border border-gray-300 rounded px-4 py-2 mr-2">
+      <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ok</button>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white shadow rounded overflow-x-auto">
+      <table class="min-w-full text-sm text-left">
+        <thead class="bg-green-600 text-white">
+          <tr>
+            <th class="px-4 py-2">Date</th>
+            <th class="px-4 py-2">Heure</th>
+            <th class="px-4 py-2">Type</th>
+            <th class="px-4 py-2">Détails</th>
+            <th class="px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for rv in rendezvous %}
+            <tr class="border-b">
+              <td class="px-4 py-2">{{ rv.date|date('d/m/Y') }}</td>
+              <td class="px-4 py-2">{{ rv.heure|date('H:i') }}</td>
+              <td class="px-4 py-2">{{ rv.type }}</td>
+              <td class="px-4 py-2">
+                <a href="#" class="bg-blue-600 text-white px-3 py-1 rounded">Voir</a>
+              </td>
+              <td class="px-4 py-2">
+                <a href="#" class="bg-red-600 text-white px-3 py-1 rounded">Annuler</a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="5" class="text-center text-gray-500 p-4">Aucun rendez-vous trouvé.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination (à intégrer avec KnpPaginator par exemple) -->
+    <div class="flex justify-end mt-4 space-x-2 text-sm">
+      <button class="text-gray-600">&lt; Précédent</button>
+      <button class="bg-gray-200 text-gray-800 px-3 py-1 rounded">1</button>
+      <button class="bg-blue-600 text-white px-3 py-1 rounded">2</button>
+      <button class="bg-gray-200 text-gray-800 px-3 py-1 rounded">3</button>
+      <button class="text-gray-600">Suivant &gt;</button>
+    </div>
+  </main>
+</div>
+{% endblock %}

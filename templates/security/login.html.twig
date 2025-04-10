@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-300 flex items-center justify-center min-h-screen">
+  <div class="w-full max-w-4xl bg-white flex rounded-lg shadow-lg overflow-hidden">
+  
+    <div class="w-1/2 bg-green-500 hidden md:block"></div>
+
+    <div class="w-full md:w-1/2 p-10">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Connexion à votre espace</h2>
+      <form action="{{ path('app_security_login') }}" method="post">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-600 mb-1" for="email">Email</label>
+          <input type="email" id="email" name="email" value="{{ last_username }}" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500" />
+        </div>
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-600 mb-1" for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500" />
+        </div>
+        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Se connecter</button>
+      </form>
+      {% if error %}
+        <div class="text-red-500 mt-4 text-center">{{ error.messageKey }}</div>
+      {% endif %}
+      <p class="text-sm text-gray-600 mt-4 text-center">
+        Pas encore de compte? 
+        <a href="#" class="text-blue-600 hover:underline">Créer un compte</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+{% endblock %}
